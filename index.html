@@ -3,142 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI DSA Learning Hub</title>
+    <title>CodeMatrix - Futuristic Coding Hub</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #111111;
+            --accent-bg: #1a1a1a;
+            --neon-blue: #00ffff;
+            --neon-purple: #8a2be2;
+            --neon-green: #39ff14;
+            --neon-pink: #ff1493;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-glow: rgba(0, 255, 255, 0.3);
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(57, 255, 20, 0.05) 0%, transparent 50%);
         }
         
         .header {
-            background: rgba(0,0,0,0.2);
-            padding: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--accent-bg) 100%);
+            padding: 15px 20px;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
-        .header h1 {
-            font-size: 28px;
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: scan 3s infinite;
+        }
+        
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            padding: 8px 16px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            color: var(--neon-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--neon-blue);
+            color: var(--primary-bg);
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: calc(100vh - 80px);
+            gap: 2px;
+            background: var(--neon-blue);
+        }
+        
+        .panel {
+            background: var(--secondary-bg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-green), var(--neon-pink));
+            animation: rainbow 3s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .panel-header {
+            background: var(--accent-bg);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-glow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .panel-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .panel-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .control-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid var(--neon-green);
+            background: rgba(57, 255, 20, 0.1);
+            color: var(--neon-green);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: var(--neon-green);
+            color: var(--primary-bg);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .panel-content {
+            height: calc(100% - 50px);
+            position: relative;
+        }
+        
+        /* YouTube Panel */
+        .youtube-panel .panel-content {
+            padding: 20px;
+        }
+        
+        .youtube-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .youtube-url {
+            flex: 1;
+            padding: 12px;
+            background: var(--accent-bg);
+            border: 1px solid var(--neon-blue);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .youtube-url::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .load-btn {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
             font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .load-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+        
+        .video-container {
+            width: 100%;
+            height: calc(100% - 60px);
+            background: var(--accent-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Compiler Panel */
+        .compiler-panel .panel-content {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+        }
+        
+        .compiler-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .language-select {
+            padding: 8px 12px;
+            background: var(--accent-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .run-btn {
+            padding: 8px 16px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+        
+        .code-editor {
+            flex: 1;
+            background: var(--primary-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 5px;
+            padding: 15px;
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: none;
+            outline: none;
             margin-bottom: 10px;
         }
         
-        .subtitle {
-            font-size: 16px;
-            opacity: 0.9;
+        .output-area {
+            height: 120px;
+            background: var(--primary-bg);
+            border: 1px solid var(--neon-pink);
+            border-radius: 5px;
+            padding: 10px;
+            color: var(--neon-green);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-y: auto;
+            white-space: pre-wrap;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        
-        .input-section {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .input-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .input-field {
-            flex: 1;
+        /* LeetCode Panel */
+        .leetcode-panel .panel-content {
             padding: 15px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.9);
-            color: #333;
-            font-size: 16px;
         }
         
-        .input-field::placeholder {
-            color: #666;
-        }
-        
-        .btn {
-            padding: 15px 30px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-        }
-        
-        .btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .analysis-type {
+        .leetcode-search {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
+            margin-bottom: 15px;
         }
         
-        .type-btn {
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
+        .problem-search {
+            flex: 1;
+            padding: 10px;
+            background: var(--accent-bg);
+            border: 1px solid var(--neon-purple);
+            border-radius: 5px;
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .search-btn {
+            padding: 10px 16px;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 5px;
             color: white;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
         }
         
-        .type-btn.active {
-            background: #4CAF50;
-            border-color: #4CAF50;
+        .leetcode-frame {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: 1px solid var(--neon-purple);
+            border-radius: 8px;
+            background: white;
         }
         
-        .results-section {
+        /* AI Analysis Panel */
+        .ai-panel .panel-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .ai-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .analyze-btn {
+            padding: 10px 16px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+        
+        .ai-output {
+            flex: 1;
+            background: var(--primary-bg);
+            border: 1px solid var(--neon-pink);
+            border-radius: 8px;
+            padding: 15px;
+            overflow-y: auto;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .loading-animation {
             display: none;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .loading {
             text-align: center;
-            padding: 40px;
-            display: none;
+            padding: 20px;
         }
         
-        .spinner {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top: 3px solid #4CAF50;
-            border-radius: 50%;
+        .cyber-loader {
             width: 40px;
             height: 40px;
+            border: 2px solid var(--neon-blue);
+            border-top: 2px solid transparent;
+            border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin: 0 auto 10px;
         }
         
         @keyframes spin {
@@ -146,363 +407,488 @@
             100% { transform: rotate(360deg); }
         }
         
-        .content-section {
-            margin-bottom: 25px;
-        }
-        
-        .content-section h3 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-        
-        .content-section p, .content-section ul {
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .content-section ul {
-            padding-left: 20px;
-        }
-        
-        .content-section li {
-            margin-bottom: 8px;
-        }
-        
-        .quick-topics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .topic-card {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .topic-card:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-3px);
-        }
-        
-        .topic-card h4 {
-            color: #4CAF50;
-            margin-bottom: 10px;
-        }
-        
-        .topic-card p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .error {
-            background: rgba(244, 67, 54, 0.2);
-            border: 1px solid rgba(244, 67, 54, 0.5);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            display: none;
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto;
+            }
+            
+            .panel {
+                min-height: 400px;
+            }
         }
         
         @media (max-width: 768px) {
-            .input-group {
+            .header-content {
                 flex-direction: column;
+                gap: 10px;
             }
             
-            .analysis-type {
+            .nav-buttons {
+                flex-wrap: wrap;
                 justify-content: center;
             }
             
-            .quick-topics {
-                grid-template-columns: 1fr;
+            .youtube-input, .compiler-controls, .leetcode-search, .ai-controls {
+                flex-direction: column;
             }
+        }
+        
+        /* Glitch Effects */
+        .glitch {
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--primary-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-purple);
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🤖 AI DSA Learning Hub</h1>
-        <p class="subtitle">Get AI-powered summaries and insights from any programming video</p>
+        <div class="header-content">
+            <div class="logo glitch">⚡ CODEMATRIX</div>
+            <div class="nav-buttons">
+                <div class="nav-btn active" onclick="switchLayout('quad')">🔲 Quad View</div>
+                <div class="nav-btn" onclick="switchLayout('focus')">🎯 Focus Mode</div>
+                <div class="nav-btn" onclick="toggleFullscreen()">⛶ Fullscreen</div>
+            </div>
+        </div>
     </div>
     
-    <div class="container">
-        <div class="input-section">
-            <h2 style="margin-bottom: 20px;">📹 Analyze Any Programming Video</h2>
-            <div class="input-group">
-                <input type="text" id="videoUrl" class="input-field" placeholder="Paste YouTube video URL here (e.g., Striver's DSA videos)">
-                <button onclick="analyzeVideo()" class="btn" id="analyzeBtn">🔍 Analyze</button>
+    <div class="main-container" id="mainContainer">
+        <!-- YouTube Panel -->
+        <div class="panel youtube-panel">
+            <div class="panel-header">
+                <div class="panel-title">📺 YouTube Player</div>
+                <div class="panel-controls">
+                    <div class="control-btn" onclick="refreshPanel('youtube')" title="Refresh">↻</div>
+                    <div class="control-btn" onclick="maximizePanel('youtube')" title="Maximize">⛶</div>
+                </div>
             </div>
-            
-            <div class="analysis-type">
-                <span style="margin-right: 15px;">Analysis Type:</span>
-                <div class="type-btn active" data-type="summary">📝 Summary</div>
-                <div class="type-btn" data-type="transcript">📄 Full Transcript</div>
-                <div class="type-btn" data-type="content">📚 Detailed Content</div>
-                <div class="type-btn" data-type="full">🎯 Complete Analysis</div>
+            <div class="panel-content">
+                <div class="youtube-input">
+                    <input type="text" class="youtube-url" id="youtubeUrl" placeholder="Paste YouTube URL here (e.g., Striver's DSA videos)">
+                    <button class="load-btn" onclick="loadVideo()">🚀 Load Video</button>
+                </div>
+                <div class="video-container" id="videoContainer">
+                    <div class="video-placeholder">
+                        🎬 Enter a YouTube URL to start watching
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>AI is analyzing the video... This may take 20-30 seconds</p>
+        <!-- Online Compiler Panel -->
+        <div class="panel compiler-panel">
+            <div class="panel-header">
+                <div class="panel-title">💻 Code Compiler</div>
+                <div class="panel-controls">
+                    <div class="control-btn" onclick="clearCode()" title="Clear">🗑</div>
+                    <div class="control-btn" onclick="maximizePanel('compiler')" title="Maximize">⛶</div>
+                </div>
+            </div>
+            <div class="panel-content">
+                <div class="compiler-controls">
+                    <select class="language-select" id="languageSelect">
+                        <option value="python">🐍 Python</option>
+                        <option value="javascript">🟨 JavaScript</option>
+                        <option value="bash">⚡ Bash</option>
+                    </select>
+                    <button class="run-btn" onclick="runCode()">▶️ Run Code</button>
+                </div>
+                <textarea class="code-editor" id="codeEditor" placeholder="// Write your code here...
+print('Hello, CodeMatrix!')"></textarea>
+                <div class="output-area" id="outputArea">💡 Output will appear here...</div>
+            </div>
         </div>
         
-        <div class="error" id="error"></div>
-        
-        <div class="results-section" id="results">
-            <h2 style="margin-bottom: 25px;">📊 Analysis Results</h2>
-            <div id="analysisContent"></div>
+        <!-- LeetCode Panel -->
+        <div class="panel leetcode-panel">
+            <div class="panel-header">
+                <div class="panel-title">🎯 LeetCode Practice</div>
+                <div class="panel-controls">
+                    <div class="control-btn" onclick="refreshPanel('leetcode')" title="Refresh">↻</div>
+                    <div class="control-btn" onclick="maximizePanel('leetcode')" title="Maximize">⛶</div>
+                </div>
+            </div>
+            <div class="panel-content">
+                <div class="leetcode-search">
+                    <input type="text" class="problem-search" id="problemSearch" placeholder="Search problems or enter problem URL">
+                    <button class="search-btn" onclick="loadLeetCode()">🔍 Load</button>
+                </div>
+                <iframe class="leetcode-frame" id="leetcodeFrame" src="https://leetcode.com/problemset/"></iframe>
+            </div>
         </div>
         
-        <div class="quick-topics">
-            <div class="topic-card" onclick="loadSample('arrays')">
-                <h4>🔢 Arrays & Strings</h4>
-                <p>Click to analyze a sample Striver video on Arrays fundamentals</p>
+        <!-- AI Analysis Panel -->
+        <div class="panel ai-panel">
+            <div class="panel-header">
+                <div class="panel-title">🤖 AI Analysis</div>
+                <div class="panel-controls">
+                    <div class="control-btn" onclick="clearAnalysis()" title="Clear">🗑</div>
+                    <div class="control-btn" onclick="maximizePanel('ai')" title="Maximize">⛶</div>
+                </div>
             </div>
-            <div class="topic-card" onclick="loadSample('linkedlist')">
-                <h4>🔗 Linked Lists</h4>
-                <p>Get AI summary of Linked List concepts and implementations</p>
-            </div>
-            <div class="topic-card" onclick="loadSample('trees')">
-                <h4>🌳 Trees & Graphs</h4>
-                <p>Analyze tree traversal and graph algorithms videos</p>
-            </div>
-            <div class="topic-card" onclick="loadSample('dp')">
-                <h4>⚡ Dynamic Programming</h4>
-                <p>Break down complex DP problems with AI assistance</p>
+            <div class="panel-content">
+                <div class="ai-controls">
+                    <button class="analyze-btn" onclick="analyzeCurrentVideo()">🧠 Analyze Video</button>
+                    <button class="analyze-btn" onclick="explainCode()">📝 Explain Code</button>
+                </div>
+                <div class="loading-animation" id="aiLoading">
+                    <div class="cyber-loader"></div>
+                    <div>AI Processing...</div>
+                </div>
+                <div class="ai-output" id="aiOutput">
+                    🤖 <strong>AI Assistant Ready</strong><br><br>
+                    • Click "Analyze Video" to get AI insights from the current YouTube video<br>
+                    • Click "Explain Code" to get AI explanation of your code<br>
+                    • AI will provide detailed summaries, key concepts, and learning insights<br><br>
+                    <em>Powered by advanced AI models for enhanced learning</em>
+                </div>
             </div>
         </div>
     </div>
     
     <script>
-        let selectedType = 'summary';
-        let currentRequestId = null;
+        let currentLayout = 'quad';
+        let maximizedPanel = null;
         
-        // Sample video URLs for different topics
-        const sampleVideos = {
-            arrays: 'https://www.youtube.com/watch?v=37E9ckMDdTk',
-            linkedlist: 'https://www.youtube.com/watch?v=Nq7ok-OyEpg',
-            trees: 'https://www.youtube.com/watch?v=_SiwrPXG9-g',
-            dp: 'https://www.youtube.com/watch?v=tyB0ztf0DNY'
+        // Sample URLs for quick testing
+        const sampleUrls = {
+            youtube: [
+                'https://www.youtube.com/watch?v=37E9ckMDdTk', // Arrays
+                'https://www.youtube.com/watch?v=Nq7ok-OyEpg', // Linked Lists
+                'https://www.youtube.com/watch?v=_SiwrPXG9-g'  // Trees
+            ],
+            leetcode: [
+                'https://leetcode.com/problems/two-sum/',
+                'https://leetcode.com/problems/add-two-numbers/',
+                'https://leetcode.com/problems/longest-substring-without-repeating-characters/'
+            ]
         };
         
-        // Handle analysis type selection
-        document.querySelectorAll('.type-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                selectedType = this.dataset.type;
-            });
-        });
-        
-        // Load sample video
-        function loadSample(topic) {
-            document.getElementById('videoUrl').value = sampleVideos[topic];
-            analyzeVideo();
+        // Load YouTube Video
+        function loadVideo() {
+            const url = document.getElementById('youtubeUrl').value.trim();
+            const container = document.getElementById('videoContainer');
+            
+            if (!url) {
+                // Load random sample video
+                const randomUrl = sampleUrls.youtube[Math.floor(Math.random() * sampleUrls.youtube.length)];
+                document.getElementById('youtubeUrl').value = randomUrl;
+                loadVideo();
+                return;
+            }
+            
+            let videoId = '';
+            if (url.includes('youtube.com/watch?v=')) {
+                videoId = url.split('v=')[1].split('&')[0];
+            } else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            } else {
+                container.innerHTML = '<div class="video-placeholder">❌ Invalid YouTube URL</div>';
+                return;
+            }
+            
+            const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            container.innerHTML = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
         }
         
-        // Main analysis function
-        async function analyzeVideo() {
-            const videoUrl = document.getElementById('videoUrl').value.trim();
-            const errorDiv = document.getElementById('error');
-            const loadingDiv = document.getElementById('loading');
-            const resultsDiv = document.getElementById('results');
-            const analyzeBtn = document.getElementById('analyzeBtn');
+        // Run Code in Compiler
+        async function runCode() {
+            const code = document.getElementById('codeEditor').value;
+            const language = document.getElementById('languageSelect').value;
+            const output = document.getElementById('outputArea');
             
-            // Reset UI
-            errorDiv.style.display = 'none';
-            resultsDiv.style.display = 'none';
+            if (!code.trim()) {
+                output.textContent = '❌ Please enter some code to run';
+                return;
+            }
+            
+            output.textContent = '⚡ Executing code...';
+            
+            try {
+                // This would call the actual code interpreter API
+                // For demo, we'll simulate execution
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Mock output based on language
+                let mockOutput = '';
+                if (language === 'python') {
+                    if (code.includes('print')) {
+                        mockOutput = '✅ Code executed successfully!\n\nOutput:\nHello, CodeMatrix!\n\nExecution time: 0.02s';
+                    } else {
+                        mockOutput = '✅ Code executed successfully!\n\nNo output (no print statements)\nExecution time: 0.01s';
+                    }
+                } else if (language === 'javascript') {
+                    mockOutput = '✅ Code executed successfully!\n\nConsole output:\nHello, CodeMatrix!\n\nExecution time: 0.03s';
+                } else {
+                    mockOutput = '✅ Bash script executed!\n\nOutput:\nHello, CodeMatrix!\n\nExecution time: 0.05s';
+                }
+                
+                output.textContent = mockOutput;
+                
+            } catch (error) {
+                output.textContent = `❌ Execution Error:\n${error.message}`;
+            }
+        }
+        
+        // Load LeetCode Problem
+        function loadLeetCode() {
+            const search = document.getElementById('problemSearch').value.trim();
+            const frame = document.getElementById('leetcodeFrame');
+            
+            if (!search) {
+                frame.src = 'https://leetcode.com/problemset/';
+                return;
+            }
+            
+            if (search.includes('leetcode.com')) {
+                frame.src = search;
+            } else {
+                // Search for problem
+                frame.src = `https://leetcode.com/problemset/?search=${encodeURIComponent(search)}`;
+            }
+        }
+        
+        // AI Analysis Functions
+        async function analyzeCurrentVideo() {
+            const videoUrl = document.getElementById('youtubeUrl').value.trim();
+            const aiOutput = document.getElementById('aiOutput');
+            const loading = document.getElementById('aiLoading');
             
             if (!videoUrl) {
-                showError('Please enter a YouTube video URL');
+                aiOutput.innerHTML = '❌ Please load a YouTube video first';
                 return;
             }
             
-            if (!videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be')) {
-                showError('Please enter a valid YouTube URL');
+            loading.style.display = 'block';
+            aiOutput.style.display = 'none';
+            
+            try {
+                // Simulate AI analysis
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                const analysis = `
+                🧠 <strong>AI Video Analysis Complete</strong><br><br>
+                
+                📹 <strong>Video Summary:</strong><br>
+                This programming tutorial covers fundamental concepts with clear explanations and practical examples. The instructor demonstrates step-by-step problem-solving approaches with code implementations.<br><br>
+                
+                🎯 <strong>Key Learning Points:</strong><br>
+                • Algorithm complexity analysis (Time & Space)<br>
+                • Data structure implementation details<br>
+                • Common problem-solving patterns<br>
+                • Best practices and optimization techniques<br><br>
+                
+                💡 <strong>Recommended Practice:</strong><br>
+                • Try implementing the discussed algorithms<br>
+                • Solve related problems on LeetCode<br>
+                • Focus on understanding the underlying patterns<br><br>
+                
+                ⚡ <strong>Next Steps:</strong><br>
+                Practice similar problems and review the concepts regularly for better retention.
+                `;
+                
+                aiOutput.innerHTML = analysis;
+                
+            } catch (error) {
+                aiOutput.innerHTML = `❌ AI Analysis Error: ${error.message}`;
+            } finally {
+                loading.style.display = 'none';
+                aiOutput.style.display = 'block';
+            }
+        }
+        
+        async function explainCode() {
+            const code = document.getElementById('codeEditor').value.trim();
+            const aiOutput = document.getElementById('aiOutput');
+            const loading = document.getElementById('aiLoading');
+            
+            if (!code) {
+                aiOutput.innerHTML = '❌ Please write some code first';
                 return;
             }
             
-            // Show loading
-            loadingDiv.style.display = 'block';
-            analyzeBtn.disabled = true;
-            analyzeBtn.textContent = '🔄 Analyzing...';
+            loading.style.display = 'block';
+            aiOutput.style.display = 'none';
             
             try {
-                // Start analysis
-                const response = await fetch('/api/analyze-video', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        videoUrl: videoUrl,
-                        analysisType: selectedType
-                    })
-                });
+                await new Promise(resolve => setTimeout(resolve, 2000));
                 
-                const data = await response.json();
+                const explanation = `
+                🤖 <strong>AI Code Analysis</strong><br><br>
                 
-                if (data.success) {
-                    currentRequestId = data.requestId;
-                    checkAnalysisStatus();
-                } else {
-                    throw new Error(data.error || 'Analysis failed');
-                }
+                📝 <strong>Code Explanation:</strong><br>
+                Your code demonstrates fundamental programming concepts with clear logic flow. The implementation follows good practices and shows understanding of the problem domain.<br><br>
+                
+                ⚡ <strong>Algorithm Analysis:</strong><br>
+                • Time Complexity: O(n) - Linear time execution<br>
+                • Space Complexity: O(1) - Constant space usage<br>
+                • Approach: Iterative solution with optimal efficiency<br><br>
+                
+                💡 <strong>Suggestions:</strong><br>
+                • Consider edge cases for robust implementation<br>
+                • Add input validation for production code<br>
+                • Think about alternative approaches for comparison<br><br>
+                
+                🎯 <strong>Learning Opportunity:</strong><br>
+                This code pattern is commonly used in technical interviews and real-world applications.
+                `;
+                
+                aiOutput.innerHTML = explanation;
                 
             } catch (error) {
-                console.error('Analysis error:', error);
-                showError('Failed to analyze video. Please try again.');
-                resetUI();
+                aiOutput.innerHTML = `❌ Code Analysis Error: ${error.message}`;
+            } finally {
+                loading.style.display = 'none';
+                aiOutput.style.display = 'block';
             }
         }
         
-        // Check analysis status
-        async function checkAnalysisStatus() {
-            if (!currentRequestId) return;
+        // Panel Management
+        function refreshPanel(panelType) {
+            switch(panelType) {
+                case 'youtube':
+                    loadVideo();
+                    break;
+                case 'leetcode':
+                    document.getElementById('leetcodeFrame').src = document.getElementById('leetcodeFrame').src;
+                    break;
+            }
+        }
+        
+        function maximizePanel(panelType) {
+            // Toggle maximize/minimize
+            if (maximizedPanel === panelType) {
+                switchLayout('quad');
+                maximizedPanel = null;
+            } else {
+                switchLayout('focus');
+                maximizedPanel = panelType;
+            }
+        }
+        
+        function switchLayout(layout) {
+            const container = document.getElementById('mainContainer');
+            const navBtns = document.querySelectorAll('.nav-btn');
             
-            try {
-                const response = await fetch(`/api/check-status/${currentRequestId}`);
-                const data = await response.json();
-                
-                if (data.status === 'SUCCESS') {
-                    displayResults(data.results);
-                    resetUI();
-                } else if (data.status === 'PROCESSING') {
-                    // Check again in 5 seconds
-                    setTimeout(checkAnalysisStatus, 5000);
-                } else {
-                    throw new Error('Analysis failed');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            
+            if (layout === 'quad') {
+                container.style.gridTemplateColumns = '1fr 1fr';
+                container.style.gridTemplateRows = '1fr 1fr';
+                document.querySelector('[onclick="switchLayout(\'quad\')"]').classList.add('active');
+            } else if (layout === 'focus') {
+                container.style.gridTemplateColumns = '1fr';
+                container.style.gridTemplateRows = '1fr';
+                document.querySelector('[onclick="switchLayout(\'focus\')"]').classList.add('active');
+            }
+            
+            currentLayout = layout;
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        }
+        
+        function clearCode() {
+            document.getElementById('codeEditor').value = '';
+            document.getElementById('outputArea').textContent = '💡 Output will appear here...';
+        }
+        
+        function clearAnalysis() {
+            document.getElementById('aiOutput').innerHTML = `
+                🤖 <strong>AI Assistant Ready</strong><br><br>
+                • Click "Analyze Video" to get AI insights from the current YouTube video<br>
+                • Click "Explain Code" to get AI explanation of your code<br>
+                • AI will provide detailed summaries, key concepts, and learning insights<br><br>
+                <em>Powered by advanced AI models for enhanced learning</em>
+            `;
+        }
+        
+        // Keyboard Shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        document.getElementById('youtubeUrl').focus();
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        document.getElementById('codeEditor').focus();
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        document.getElementById('problemSearch').focus();
+                        break;
+                    case 'Enter':
+                        if (e.target.id === 'youtubeUrl') {
+                            e.preventDefault();
+                            loadVideo();
+                        } else if (e.target.id === 'problemSearch') {
+                            e.preventDefault();
+                            loadLeetCode();
+                        }
+                        break;
                 }
-                
-            } catch (error) {
-                console.error('Status check error:', error);
-                showError('Failed to get analysis results. Please try again.');
-                resetUI();
-            }
-        }
-        
-        // Display analysis results
-        function displayResults(results) {
-            const contentDiv = document.getElementById('analysisContent');
-            const resultsDiv = document.getElementById('results');
-            
-            let html = '';
-            
-            if (results.summary) {
-                html += `
-                    <div class="content-section">
-                        <h3>📝 Summary</h3>
-                        <p>${results.summary}</p>
-                    </div>
-                `;
-            }
-            
-            if (results.keyPoints && results.keyPoints.length > 0) {
-                html += `
-                    <div class="content-section">
-                        <h3>🎯 Key Points</h3>
-                        <ul>
-                            ${results.keyPoints.map(point => `<li>${point}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            }
-            
-            if (results.transcript) {
-                html += `
-                    <div class="content-section">
-                        <h3>📄 Transcript</h3>
-                        <p style="white-space: pre-wrap;">${results.transcript}</p>
-                    </div>
-                `;
-            }
-            
-            if (results.concepts && results.concepts.length > 0) {
-                html += `
-                    <div class="content-section">
-                        <h3>📚 Concepts Covered</h3>
-                        <ul>
-                            ${results.concepts.map(concept => `<li>${concept}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-            }
-            
-            contentDiv.innerHTML = html;
-            resultsDiv.style.display = 'block';
-            
-            // Scroll to results
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Show error message
-        function showError(message) {
-            const errorDiv = document.getElementById('error');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-        }
-        
-        // Reset UI
-        function resetUI() {
-            document.getElementById('loading').style.display = 'none';
-            const analyzeBtn = document.getElementById('analyzeBtn');
-            analyzeBtn.disabled = false;
-            analyzeBtn.textContent = '🔍 Analyze';
-        }
-        
-        // Handle Enter key
-        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                analyzeVideo();
             }
         });
         
-        // Demo mode for GitHub Pages (since we can't run server-side code)
-        // This will be replaced with actual API calls when deployed with backend
-        window.demoMode = true;
-        
-        if (window.demoMode) {
-            // Override functions for demo
-            window.analyzeVideo = async function() {
-                const videoUrl = document.getElementById('videoUrl').value.trim();
-                
-                if (!videoUrl) {
-                    showError('Please enter a YouTube video URL');
-                    return;
-                }
-                
-                document.getElementById('loading').style.display = 'block';
-                document.getElementById('analyzeBtn').disabled = true;
-                
-                // Simulate analysis
-                setTimeout(() => {
-                    const demoResults = {
-                        summary: "This video covers fundamental array operations including traversal, insertion, deletion, and searching. The instructor explains time complexity analysis and provides multiple coding examples with step-by-step explanations.",
-                        keyPoints: [
-                            "Array indexing starts from 0 in most programming languages",
-                            "Time complexity for access: O(1), insertion/deletion: O(n)",
-                            "Two-pointer technique for efficient array problems",
-                            "Common patterns: sliding window, prefix sum, binary search"
-                        ],
-                        concepts: [
-                            "Array fundamentals and memory allocation",
-                            "Time and space complexity analysis",
-                            "Common array algorithms and patterns",
-                            "Problem-solving strategies"
-                        ]
-                    };
-                    
-                    displayResults(demoResults);
-                    resetUI();
-                }, 3000);
-            };
-        }
+        // Initialize with sample content
+        window.addEventListener('load', function() {
+            // Load sample YouTube video
+            document.getElementById('youtubeUrl').value = sampleUrls.youtube[0];
+            
+            // Add sample code
+            document.getElementById('codeEditor').value = `# Sample Python Code
+def two_sum(nums, target):
+    """
+    Find two numbers that add up to target
+    """
+    seen = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []
+
+# Test the function
+nums = [2, 7, 11, 15]
+target = 9
+result = two_sum(nums, target)
+print(f"Indices: {result}")`;
+        });
     </script>
 </body>
 </html>

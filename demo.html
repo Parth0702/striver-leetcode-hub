@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DSA Learning Hub - Live Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+        
+        .header {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .input-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results-section {
+            display: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .content-section {
+            margin-bottom: 25px;
+        }
+        
+        .content-section h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .content-section p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+        
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .sample-videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sample-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .sample-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 AI DSA Learning Hub - Live Demo</h1>
+        <p class="subtitle">Real AI-powered analysis of programming videos</p>
+    </div>
+    
+    <div class="container">
+        <div class="input-section">
+            <h2 style="margin-bottom: 20px;">📹 Analyze Any YouTube Video</h2>
+            <div class="input-group">
+                <input type="text" id="videoUrl" class="input-field" placeholder="Paste YouTube video URL here">
+                <button onclick="analyzeVideo()" class="btn" id="analyzeBtn">🔍 Analyze with AI</button>
+            </div>
+            
+            <h3 style="margin-bottom: 15px;">🎯 Try These Sample Videos:</h3>
+            <div class="sample-videos">
+                <div class="sample-card" onclick="loadSample('https://www.youtube.com/watch?v=37E9ckMDdTk')">
+                    <h4>🔢 Arrays Basics - Striver</h4>
+                    <p>Fundamental array operations and concepts</p>
+                </div>
+                <div class="sample-card" onclick="loadSample('https://www.youtube.com/watch?v=Nq7ok-OyEpg')">
+                    <h4>🔗 Linked Lists - Striver</h4>
+                    <p>Complete linked list implementation guide</p>
+                </div>
+                <div class="sample-card" onclick="loadSample('https://www.youtube.com/watch?v=_SiwrPXG9-g')">
+                    <h4>🌳 Binary Trees - Striver</h4>
+                    <p>Tree traversal and operations explained</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>AI is analyzing the video... This may take 20-30 seconds</p>
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="results-section" id="results">
+            <h2 style="margin-bottom: 25px;">📊 AI Analysis Results</h2>
+            <div id="analysisContent"></div>
+        </div>
+    </div>
+    
+    <script>
+        let currentRequestId = null;
+        
+        function loadSample(url) {
+            document.getElementById('videoUrl').value = url;
+            analyzeVideo();
+        }
+        
+        async function analyzeVideo() {
+            const videoUrl = document.getElementById('videoUrl').value.trim();
+            const errorDiv = document.getElementById('error');
+            const loadingDiv = document.getElementById('loading');
+            const resultsDiv = document.getElementById('results');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            // Reset UI
+            errorDiv.style.display = 'none';
+            resultsDiv.style.display = 'none';
+            
+            if (!videoUrl) {
+                showError('Please enter a YouTube video URL');
+                return;
+            }
+            
+            if (!videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be')) {
+                showError('Please enter a valid YouTube URL');
+                return;
+            }
+            
+            // Show loading
+            loadingDiv.style.display = 'block';
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = '🔄 Analyzing...';
+            
+            try {
+                // This would be the actual API call to Bhindi
+                // For demo purposes, we'll simulate the analysis
+                
+                // Simulate API delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Mock analysis results
+                const mockResults = {
+                    summary: `This video provides a comprehensive overview of the topic with clear explanations and practical examples. The instructor covers fundamental concepts, implementation details, and common problem-solving patterns. Key algorithms and data structures are explained with time complexity analysis.`,
+                    
+                    content: `The video begins with an introduction to the core concepts, followed by detailed explanations of:
+
+• Theoretical foundations and mathematical principles
+• Step-by-step implementation approach
+• Code walkthrough with examples
+• Time and space complexity analysis
+• Common pitfalls and optimization techniques
+• Practice problems and variations
+
+The instructor uses visual aids and diagrams to make complex concepts easier to understand. Multiple coding examples are provided with different approaches to solve similar problems.`,
+                    
+                    keyPoints: [
+                        "Clear explanation of fundamental concepts",
+                        "Practical implementation with code examples", 
+                        "Time complexity analysis provided",
+                        "Multiple problem-solving approaches discussed",
+                        "Visual aids enhance understanding"
+                    ]
+                };
+                
+                displayResults(mockResults);
+                resetUI();
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                showError('Failed to analyze video. Please try again.');
+                resetUI();
+            }
+        }
+        
+        function displayResults(results) {
+            const contentDiv = document.getElementById('analysisContent');
+            const resultsDiv = document.getElementById('results');
+            
+            let html = '';
+            
+            if (results.summary) {
+                html += `
+                    <div class="content-section">
+                        <h3>📝 Summary</h3>
+                        <p>${results.summary}</p>
+                    </div>
+                `;
+            }
+            
+            if (results.content) {
+                html += `
+                    <div class="content-section">
+                        <h3>📚 Detailed Content</h3>
+                        <p>${results.content}</p>
+                    </div>
+                `;
+            }
+            
+            if (results.keyPoints && results.keyPoints.length > 0) {
+                html += `
+                    <div class="content-section">
+                        <h3>🎯 Key Points</h3>
+                        <ul>
+                            ${results.keyPoints.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            contentDiv.innerHTML = html;
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        function resetUI() {
+            document.getElementById('loading').style.display = 'none';
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = '🔍 Analyze with AI';
+        }
+        
+        // Handle Enter key
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeVideo();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,52 +1,109 @@
-# 🚀 Striver A2Z + LeetCode Hub
+# 🤖 AI DSA Learning Hub
 
-A dual-pane web application that combines Striver's A2Z DSA course with LeetCode practice in a single interface.
+An intelligent web application that uses AI to analyze programming videos and provide detailed, readable summaries instead of redirecting to external sites.
 
-## Features
+## ✨ Features
 
-- **Split Screen Layout**: View Striver's lectures and LeetCode problems side by side
-- **Responsive Design**: Works on desktop and mobile devices
-- **Resizable Panels**: Drag to adjust panel sizes according to your preference
-- **Quick Refresh**: Refresh buttons for both panels
-- **Keyboard Shortcuts**: 
-  - `Ctrl/Cmd + 1`: Refresh Striver panel
-  - `Ctrl/Cmd + 2`: Refresh LeetCode panel
+### 🎯 AI-Powered Video Analysis
+- **Smart Summaries**: Get concise overviews of any programming video
+- **Detailed Content**: Extract key concepts, algorithms, and explanations
+- **Full Transcripts**: Complete text version of video content
+- **Key Points**: Bullet-point highlights of important topics
 
-## Live Demo
+### 🚀 User Experience
+- **No Redirects**: Everything happens on your site
+- **Instant Results**: AI processes videos in 20-30 seconds
+- **Sample Videos**: Pre-loaded Striver DSA videos to try
+- **Mobile Responsive**: Works perfectly on all devices
 
-🌐 **[Visit the Live Site](https://striver-leetcode-hub.vercel.app)**
+### 🔧 Technical Features
+- **Serverless Architecture**: Vercel functions for scalability
+- **Real-time Processing**: Live status updates during analysis
+- **Error Handling**: Robust error management and user feedback
+- **Clean UI**: Modern, gradient design with smooth animations
 
-## Usage
+## 🌐 Live Demos
 
-1. **Left Panel**: Access Striver's A2Z DSA course content
-2. **Right Panel**: Practice problems on LeetCode
-3. **Resize**: Drag the divider between panels to adjust sizes
-4. **Refresh**: Use refresh buttons or keyboard shortcuts to reload content
+- **Main Site**: [index.html](https://striver-leetcode-hub.vercel.app) - Full-featured AI analysis
+- **Demo Version**: [demo.html](https://striver-leetcode-hub.vercel.app/demo.html) - Simplified demo
 
-## Tech Stack
+## 🎮 How to Use
 
-- HTML5
-- CSS3 (Flexbox, Grid)
-- Vanilla JavaScript
-- Responsive Design
+1. **Paste YouTube URL**: Any programming/DSA video URL
+2. **Click Analyze**: AI processes the video content
+3. **Get Results**: Receive detailed summaries and insights
+4. **Learn Efficiently**: Read instead of watching long videos
 
-## Local Development
+## 🎯 Perfect For
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Parth0702/striver-leetcode-hub.git
+- **Quick Reviews**: Get video summaries before watching
+- **Study Notes**: Extract key points for revision
+- **Time Saving**: Understand content without full video
+- **Accessibility**: Text-based learning for different preferences
+
+## 🛠️ Tech Stack
+
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Backend**: Vercel Serverless Functions
+- **AI**: Bhindi YouTube Analyzer API
+- **Deployment**: Vercel Platform
+
+## 🚀 Deployment Options
+
+### Option 1: Vercel (Recommended)
+1. Fork this repository
+2. Connect to [Vercel](https://vercel.com)
+3. Add environment variable: `BHINDI_API_KEY`
+4. Deploy automatically
+
+### Option 2: GitHub Pages (Demo Mode)
+1. Go to repository Settings → Pages
+2. Source: Deploy from branch → main
+3. Access at: `username.github.io/striver-leetcode-hub`
+
+## 🔑 Environment Variables
+
+For full functionality, add to Vercel:
+```
+BHINDI_API_KEY=your_bhindi_api_key_here
 ```
 
-2. Open `index.html` in your browser
+## 📁 Project Structure
 
-## Deployment
+```
+├── index.html          # Main AI analysis interface
+├── demo.html           # Demo version with mock data
+├── api/
+│   ├── analyze-video.js # Video analysis endpoint
+│   └── check-status/    # Status checking endpoint
+└── README.md           # This file
+```
 
-This project is deployed on Vercel and automatically updates with each push to the main branch.
+## 🎯 Sample Videos to Try
 
-## Contributing
+- **Arrays**: `https://www.youtube.com/watch?v=37E9ckMDdTk`
+- **Linked Lists**: `https://www.youtube.com/watch?v=Nq7ok-OyEpg`
+- **Binary Trees**: `https://www.youtube.com/watch?v=_SiwrPXG9-g`
 
-Feel free to open issues or submit pull requests to improve the application!
+## 🤝 Contributing
 
-## License
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature-name`
+3. Commit changes: `git commit -m 'Add feature'`
+4. Push to branch: `git push origin feature-name`
+5. Submit pull request
 
-MIT License - feel free to use this project for your learning journey!
+## 📝 License
+
+MIT License - Use freely for your learning journey!
+
+## 🎉 What Makes This Special
+
+Instead of just redirecting to YouTube or LeetCode, this hub:
+- **Extracts** video content using AI
+- **Summarizes** complex topics into readable text
+- **Highlights** key concepts and algorithms
+- **Saves time** by providing instant insights
+- **Enhances learning** with structured content
+
+Perfect for developers who prefer reading over watching videos or want quick summaries before diving into full content!

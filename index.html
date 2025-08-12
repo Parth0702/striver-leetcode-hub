@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Striver A2Z + LeetCode Hub</title>
+    <title>AI DSA Learning Hub</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             color: #fff;
         }
@@ -23,6 +23,7 @@
             padding: 20px;
             text-align: center;
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         .header h1 {
@@ -39,168 +40,185 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 20px;
         }
         
-        .panels {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
+        .input-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
         
-        .panel {
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .input-field::placeholder {
+            color: #666;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .analysis-type {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .type-btn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .type-btn.active {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+        
+        .results-section {
+            display: none;
             background: rgba(255,255,255,0.1);
             border-radius: 15px;
             padding: 30px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .panel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
         }
         
-        .panel-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: block;
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid #4CAF50;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
         }
         
-        .panel h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .panel p {
-            font-size: 16px;
-            line-height: 1.6;
+        .content-section {
             margin-bottom: 25px;
-            opacity: 0.9;
         }
         
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        
-        .btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
-        
-        .btn-primary {
-            background: #4CAF50;
-            border-color: #4CAF50;
-        }
-        
-        .btn-primary:hover {
-            background: #45a049;
-        }
-        
-        .btn-secondary {
-            background: #2196F3;
-            border-color: #2196F3;
-        }
-        
-        .btn-secondary:hover {
-            background: #1976D2;
-        }
-        
-        .quick-links {
-            margin-top: 40px;
-            text-align: center;
-        }
-        
-        .quick-links h3 {
-            margin-bottom: 20px;
+        .content-section h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
             font-size: 20px;
         }
         
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+        .content-section p, .content-section ul {
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
         
-        .quick-link {
+        .content-section ul {
+            padding-left: 20px;
+        }
+        
+        .content-section li {
+            margin-bottom: 8px;
+        }
+        
+        .quick-topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .topic-card {
             background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .topic-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+        }
+        
+        .topic-card h4 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        
+        .topic-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.5);
             padding: 15px;
             border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .quick-link:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        
-        .tips {
-            margin-top: 40px;
-            background: rgba(0,0,0,0.2);
-            padding: 25px;
-            border-radius: 15px;
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .tips h3 {
-            margin-bottom: 15px;
-            color: #4CAF50;
-        }
-        
-        .tips ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .tips li {
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .tips li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #4CAF50;
-            font-weight: bold;
+            margin-top: 15px;
+            display: none;
         }
         
         @media (max-width: 768px) {
-            .panels {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .input-group {
+                flex-direction: column;
             }
             
-            .header h1 {
-                font-size: 24px;
+            .analysis-type {
+                justify-content: center;
             }
             
-            .panel {
-                padding: 20px;
-            }
-            
-            .links-grid {
+            .quick-topics {
                 grid-template-columns: 1fr;
             }
         }
@@ -208,111 +226,283 @@
 </head>
 <body>
     <div class="header">
-        <h1>🚀 Striver A2Z + LeetCode Hub</h1>
-        <p class="subtitle">Your one-stop destination for DSA mastery</p>
+        <h1>🤖 AI DSA Learning Hub</h1>
+        <p class="subtitle">Get AI-powered summaries and insights from any programming video</p>
     </div>
     
     <div class="container">
-        <div class="panels">
-            <div class="panel">
-                <span class="panel-icon">📚</span>
-                <h2>Striver's A2Z DSA Course</h2>
-                <p>Complete Data Structures & Algorithms course with step-by-step explanations, theory, and practice problems.</p>
-                <div class="btn-group">
-                    <a href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/" target="_blank" class="btn btn-primary">
-                        📖 Open Course Sheet
-                    </a>
-                    <a href="https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz" target="_blank" class="btn btn-secondary">
-                        🎥 YouTube Playlist
-                    </a>
-                    <a href="https://takeuforward.org/" target="_blank" class="btn">
-                        🌐 TakeUForward Website
-                    </a>
-                </div>
+        <div class="input-section">
+            <h2 style="margin-bottom: 20px;">📹 Analyze Any Programming Video</h2>
+            <div class="input-group">
+                <input type="text" id="videoUrl" class="input-field" placeholder="Paste YouTube video URL here (e.g., Striver's DSA videos)">
+                <button onclick="analyzeVideo()" class="btn" id="analyzeBtn">🔍 Analyze</button>
             </div>
             
-            <div class="panel">
-                <span class="panel-icon">💻</span>
-                <h2>LeetCode Practice</h2>
-                <p>Practice coding problems, participate in contests, and track your progress with the world's leading coding platform.</p>
-                <div class="btn-group">
-                    <a href="https://leetcode.com/problemset/" target="_blank" class="btn btn-primary">
-                        🎯 Problem Set
-                    </a>
-                    <a href="https://leetcode.com/contest/" target="_blank" class="btn btn-secondary">
-                        🏆 Contests
-                    </a>
-                    <a href="https://leetcode.com/explore/" target="_blank" class="btn">
-                        🗺️ Explore
-                    </a>
-                </div>
+            <div class="analysis-type">
+                <span style="margin-right: 15px;">Analysis Type:</span>
+                <div class="type-btn active" data-type="summary">📝 Summary</div>
+                <div class="type-btn" data-type="transcript">📄 Full Transcript</div>
+                <div class="type-btn" data-type="content">📚 Detailed Content</div>
+                <div class="type-btn" data-type="full">🎯 Complete Analysis</div>
             </div>
         </div>
         
-        <div class="quick-links">
-            <h3>🔗 Quick Access Links</h3>
-            <div class="links-grid">
-                <a href="https://leetcode.com/problems/two-sum/" target="_blank" class="quick-link">
-                    Two Sum (Easy)
-                </a>
-                <a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" class="quick-link">
-                    Add Two Numbers
-                </a>
-                <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" class="quick-link">
-                    Longest Substring
-                </a>
-                <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/" target="_blank" class="quick-link">
-                    Median Arrays (Hard)
-                </a>
-                <a href="https://takeuforward.org/data-structure/introduction-to-arrays/" target="_blank" class="quick-link">
-                    Arrays - Striver
-                </a>
-                <a href="https://takeuforward.org/data-structure/linked-list-and-arrays/" target="_blank" class="quick-link">
-                    Linked Lists - Striver
-                </a>
-            </div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>AI is analyzing the video... This may take 20-30 seconds</p>
         </div>
         
-        <div class="tips">
-            <h3>💡 Pro Tips for DSA Success</h3>
-            <ul>
-                <li>Start with Striver's theory, then practice on LeetCode</li>
-                <li>Solve at least 2-3 problems daily consistently</li>
-                <li>Focus on understanding patterns, not memorizing solutions</li>
-                <li>Use multiple browser tabs to switch between theory and practice</li>
-                <li>Join LeetCode contests to test your speed and accuracy</li>
-                <li>Review and revise solved problems weekly</li>
-            </ul>
+        <div class="error" id="error"></div>
+        
+        <div class="results-section" id="results">
+            <h2 style="margin-bottom: 25px;">📊 Analysis Results</h2>
+            <div id="analysisContent"></div>
+        </div>
+        
+        <div class="quick-topics">
+            <div class="topic-card" onclick="loadSample('arrays')">
+                <h4>🔢 Arrays & Strings</h4>
+                <p>Click to analyze a sample Striver video on Arrays fundamentals</p>
+            </div>
+            <div class="topic-card" onclick="loadSample('linkedlist')">
+                <h4>🔗 Linked Lists</h4>
+                <p>Get AI summary of Linked List concepts and implementations</p>
+            </div>
+            <div class="topic-card" onclick="loadSample('trees')">
+                <h4>🌳 Trees & Graphs</h4>
+                <p>Analyze tree traversal and graph algorithms videos</p>
+            </div>
+            <div class="topic-card" onclick="loadSample('dp')">
+                <h4>⚡ Dynamic Programming</h4>
+                <p>Break down complex DP problems with AI assistance</p>
+            </div>
         </div>
     </div>
     
     <script>
-        // Add some interactive features
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click tracking for analytics (optional)
-            const buttons = document.querySelectorAll('.btn, .quick-link');
-            buttons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    console.log('Clicked:', this.textContent.trim());
-                });
-            });
-            
-            // Add keyboard shortcuts
-            document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey || e.metaKey) {
-                    switch(e.key) {
-                        case '1':
-                            e.preventDefault();
-                            window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank');
-                            break;
-                        case '2':
-                            e.preventDefault();
-                            window.open('https://leetcode.com/problemset/', '_blank');
-                            break;
-                    }
-                }
+        let selectedType = 'summary';
+        let currentRequestId = null;
+        
+        // Sample video URLs for different topics
+        const sampleVideos = {
+            arrays: 'https://www.youtube.com/watch?v=37E9ckMDdTk',
+            linkedlist: 'https://www.youtube.com/watch?v=Nq7ok-OyEpg',
+            trees: 'https://www.youtube.com/watch?v=_SiwrPXG9-g',
+            dp: 'https://www.youtube.com/watch?v=tyB0ztf0DNY'
+        };
+        
+        // Handle analysis type selection
+        document.querySelectorAll('.type-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                selectedType = this.dataset.type;
             });
         });
+        
+        // Load sample video
+        function loadSample(topic) {
+            document.getElementById('videoUrl').value = sampleVideos[topic];
+            analyzeVideo();
+        }
+        
+        // Main analysis function
+        async function analyzeVideo() {
+            const videoUrl = document.getElementById('videoUrl').value.trim();
+            const errorDiv = document.getElementById('error');
+            const loadingDiv = document.getElementById('loading');
+            const resultsDiv = document.getElementById('results');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            // Reset UI
+            errorDiv.style.display = 'none';
+            resultsDiv.style.display = 'none';
+            
+            if (!videoUrl) {
+                showError('Please enter a YouTube video URL');
+                return;
+            }
+            
+            if (!videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be')) {
+                showError('Please enter a valid YouTube URL');
+                return;
+            }
+            
+            // Show loading
+            loadingDiv.style.display = 'block';
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = '🔄 Analyzing...';
+            
+            try {
+                // Start analysis
+                const response = await fetch('/api/analyze-video', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        videoUrl: videoUrl,
+                        analysisType: selectedType
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentRequestId = data.requestId;
+                    checkAnalysisStatus();
+                } else {
+                    throw new Error(data.error || 'Analysis failed');
+                }
+                
+            } catch (error) {
+                console.error('Analysis error:', error);
+                showError('Failed to analyze video. Please try again.');
+                resetUI();
+            }
+        }
+        
+        // Check analysis status
+        async function checkAnalysisStatus() {
+            if (!currentRequestId) return;
+            
+            try {
+                const response = await fetch(`/api/check-status/${currentRequestId}`);
+                const data = await response.json();
+                
+                if (data.status === 'SUCCESS') {
+                    displayResults(data.results);
+                    resetUI();
+                } else if (data.status === 'PROCESSING') {
+                    // Check again in 5 seconds
+                    setTimeout(checkAnalysisStatus, 5000);
+                } else {
+                    throw new Error('Analysis failed');
+                }
+                
+            } catch (error) {
+                console.error('Status check error:', error);
+                showError('Failed to get analysis results. Please try again.');
+                resetUI();
+            }
+        }
+        
+        // Display analysis results
+        function displayResults(results) {
+            const contentDiv = document.getElementById('analysisContent');
+            const resultsDiv = document.getElementById('results');
+            
+            let html = '';
+            
+            if (results.summary) {
+                html += `
+                    <div class="content-section">
+                        <h3>📝 Summary</h3>
+                        <p>${results.summary}</p>
+                    </div>
+                `;
+            }
+            
+            if (results.keyPoints && results.keyPoints.length > 0) {
+                html += `
+                    <div class="content-section">
+                        <h3>🎯 Key Points</h3>
+                        <ul>
+                            ${results.keyPoints.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            if (results.transcript) {
+                html += `
+                    <div class="content-section">
+                        <h3>📄 Transcript</h3>
+                        <p style="white-space: pre-wrap;">${results.transcript}</p>
+                    </div>
+                `;
+            }
+            
+            if (results.concepts && results.concepts.length > 0) {
+                html += `
+                    <div class="content-section">
+                        <h3>📚 Concepts Covered</h3>
+                        <ul>
+                            ${results.concepts.map(concept => `<li>${concept}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+            }
+            
+            contentDiv.innerHTML = html;
+            resultsDiv.style.display = 'block';
+            
+            // Scroll to results
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        // Reset UI
+        function resetUI() {
+            document.getElementById('loading').style.display = 'none';
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            analyzeBtn.disabled = false;
+            analyzeBtn.textContent = '🔍 Analyze';
+        }
+        
+        // Handle Enter key
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeVideo();
+            }
+        });
+        
+        // Demo mode for GitHub Pages (since we can't run server-side code)
+        // This will be replaced with actual API calls when deployed with backend
+        window.demoMode = true;
+        
+        if (window.demoMode) {
+            // Override functions for demo
+            window.analyzeVideo = async function() {
+                const videoUrl = document.getElementById('videoUrl').value.trim();
+                
+                if (!videoUrl) {
+                    showError('Please enter a YouTube video URL');
+                    return;
+                }
+                
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('analyzeBtn').disabled = true;
+                
+                // Simulate analysis
+                setTimeout(() => {
+                    const demoResults = {
+                        summary: "This video covers fundamental array operations including traversal, insertion, deletion, and searching. The instructor explains time complexity analysis and provides multiple coding examples with step-by-step explanations.",
+                        keyPoints: [
+                            "Array indexing starts from 0 in most programming languages",
+                            "Time complexity for access: O(1), insertion/deletion: O(n)",
+                            "Two-pointer technique for efficient array problems",
+                            "Common patterns: sliding window, prefix sum, binary search"
+                        ],
+                        concepts: [
+                            "Array fundamentals and memory allocation",
+                            "Time and space complexity analysis",
+                            "Common array algorithms and patterns",
+                            "Problem-solving strategies"
+                        ]
+                    };
+                    
+                    displayResults(demoResults);
+                    resetUI();
+                }, 3000);
+            };
+        }
     </script>
 </body>
 </html>

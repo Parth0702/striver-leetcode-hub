@@ -13,205 +13,305 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             color: #fff;
-            overflow: hidden;
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 15px 20px;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
         
         .header h1 {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
         }
         
         .container {
-            display: flex;
-            height: calc(100vh - 70px);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
         }
         
         .panel {
-            flex: 1;
-            position: relative;
-            border-right: 2px solid #333;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .panel:last-child {
-            border-right: none;
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         
-        .panel-header {
-            background: #2d2d2d;
-            padding: 12px 20px;
-            border-bottom: 1px solid #444;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .panel-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
         }
         
-        .panel-title {
+        .panel h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .panel p {
             font-size: 16px;
-            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
         }
         
-        .refresh-btn {
-            background: #4CAF50;
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
             color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.3);
         }
         
-        .refresh-btn:hover {
+        .btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+        
+        .btn-primary:hover {
             background: #45a049;
         }
         
-        iframe {
-            width: 100%;
-            height: calc(100% - 50px);
-            border: none;
-            background: white;
+        .btn-secondary {
+            background: #2196F3;
+            border-color: #2196F3;
         }
         
-        .loading {
+        .btn-secondary:hover {
+            background: #1976D2;
+        }
+        
+        .quick-links {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .quick-links h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .quick-link {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .tips {
+            margin-top: 40px;
+            background: rgba(0,0,0,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .tips h3 {
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .tips ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tips li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .tips li:before {
+            content: "✓";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #888;
-        }
-        
-        .resize-handle {
-            position: absolute;
-            top: 0;
-            right: -2px;
-            width: 4px;
-            height: 100%;
-            background: #333;
-            cursor: col-resize;
-            z-index: 10;
-        }
-        
-        .resize-handle:hover {
-            background: #555;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
         }
         
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
+            .panels {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
             }
             
             .panel {
-                border-right: none;
-                border-bottom: 2px solid #333;
+                padding: 20px;
             }
             
-            .panel:last-child {
-                border-bottom: none;
-            }
-            
-            .resize-handle {
-                display: none;
+            .links-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🚀 Striver A2Z DSA + LeetCode Practice Hub</h1>
+        <h1>🚀 Striver A2Z + LeetCode Hub</h1>
+        <p class="subtitle">Your one-stop destination for DSA mastery</p>
     </div>
     
     <div class="container">
-        <div class="panel" id="striver-panel">
-            <div class="panel-header">
-                <span class="panel-title">📚 Striver's A2Z DSA Course</span>
-                <button class="refresh-btn" onclick="refreshStriver()">↻ Refresh</button>
+        <div class="panels">
+            <div class="panel">
+                <span class="panel-icon">📚</span>
+                <h2>Striver's A2Z DSA Course</h2>
+                <p>Complete Data Structures & Algorithms course with step-by-step explanations, theory, and practice problems.</p>
+                <div class="btn-group">
+                    <a href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/" target="_blank" class="btn btn-primary">
+                        📖 Open Course Sheet
+                    </a>
+                    <a href="https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz" target="_blank" class="btn btn-secondary">
+                        🎥 YouTube Playlist
+                    </a>
+                    <a href="https://takeuforward.org/" target="_blank" class="btn">
+                        🌐 TakeUForward Website
+                    </a>
+                </div>
             </div>
-            <div class="loading" id="striver-loading">Loading Striver's course...</div>
-            <iframe id="striver-frame" src="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"></iframe>
-            <div class="resize-handle"></div>
+            
+            <div class="panel">
+                <span class="panel-icon">💻</span>
+                <h2>LeetCode Practice</h2>
+                <p>Practice coding problems, participate in contests, and track your progress with the world's leading coding platform.</p>
+                <div class="btn-group">
+                    <a href="https://leetcode.com/problemset/" target="_blank" class="btn btn-primary">
+                        🎯 Problem Set
+                    </a>
+                    <a href="https://leetcode.com/contest/" target="_blank" class="btn btn-secondary">
+                        🏆 Contests
+                    </a>
+                    <a href="https://leetcode.com/explore/" target="_blank" class="btn">
+                        🗺️ Explore
+                    </a>
+                </div>
+            </div>
         </div>
         
-        <div class="panel" id="leetcode-panel">
-            <div class="panel-header">
-                <span class="panel-title">💻 LeetCode Practice</span>
-                <button class="refresh-btn" onclick="refreshLeetCode()">↻ Refresh</button>
+        <div class="quick-links">
+            <h3>🔗 Quick Access Links</h3>
+            <div class="links-grid">
+                <a href="https://leetcode.com/problems/two-sum/" target="_blank" class="quick-link">
+                    Two Sum (Easy)
+                </a>
+                <a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" class="quick-link">
+                    Add Two Numbers
+                </a>
+                <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" class="quick-link">
+                    Longest Substring
+                </a>
+                <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/" target="_blank" class="quick-link">
+                    Median Arrays (Hard)
+                </a>
+                <a href="https://takeuforward.org/data-structure/introduction-to-arrays/" target="_blank" class="quick-link">
+                    Arrays - Striver
+                </a>
+                <a href="https://takeuforward.org/data-structure/linked-list-and-arrays/" target="_blank" class="quick-link">
+                    Linked Lists - Striver
+                </a>
             </div>
-            <div class="loading" id="leetcode-loading">Loading LeetCode...</div>
-            <iframe id="leetcode-frame" src="https://leetcode.com/problemset/"></iframe>
+        </div>
+        
+        <div class="tips">
+            <h3>💡 Pro Tips for DSA Success</h3>
+            <ul>
+                <li>Start with Striver's theory, then practice on LeetCode</li>
+                <li>Solve at least 2-3 problems daily consistently</li>
+                <li>Focus on understanding patterns, not memorizing solutions</li>
+                <li>Use multiple browser tabs to switch between theory and practice</li>
+                <li>Join LeetCode contests to test your speed and accuracy</li>
+                <li>Review and revise solved problems weekly</li>
+            </ul>
         </div>
     </div>
     
     <script>
-        // Refresh functions
-        function refreshStriver() {
-            const frame = document.getElementById('striver-frame');
-            frame.src = frame.src;
-        }
-        
-        function refreshLeetCode() {
-            const frame = document.getElementById('leetcode-frame');
-            frame.src = frame.src;
-        }
-        
-        // Hide loading indicators when iframes load
-        document.getElementById('striver-frame').onload = function() {
-            document.getElementById('striver-loading').style.display = 'none';
-        };
-        
-        document.getElementById('leetcode-frame').onload = function() {
-            document.getElementById('leetcode-loading').style.display = 'none';
-        };
-        
-        // Resizable panels
-        let isResizing = false;
-        
-        document.querySelector('.resize-handle').addEventListener('mousedown', function(e) {
-            isResizing = true;
-            document.addEventListener('mousemove', handleResize);
-            document.addEventListener('mouseup', stopResize);
-        });
-        
-        function handleResize(e) {
-            if (!isResizing) return;
+        // Add some interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click tracking for analytics (optional)
+            const buttons = document.querySelectorAll('.btn, .quick-link');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('Clicked:', this.textContent.trim());
+                });
+            });
             
-            const container = document.querySelector('.container');
-            const containerRect = container.getBoundingClientRect();
-            const percentage = ((e.clientX - containerRect.left) / containerRect.width) * 100;
-            
-            if (percentage > 20 && percentage < 80) {
-                document.getElementById('striver-panel').style.flex = `0 0 ${percentage}%`;
-                document.getElementById('leetcode-panel').style.flex = `0 0 ${100 - percentage}%`;
-            }
-        }
-        
-        function stopResize() {
-            isResizing = false;
-            document.removeEventListener('mousemove', handleResize);
-            document.removeEventListener('mouseup', stopResize);
-        }
-        
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
-                    case '1':
-                        e.preventDefault();
-                        refreshStriver();
-                        break;
-                    case '2':
-                        e.preventDefault();
-                        refreshLeetCode();
-                        break;
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case '1':
+                            e.preventDefault();
+                            window.open('https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/', '_blank');
+                            break;
+                        case '2':
+                            e.preventDefault();
+                            window.open('https://leetcode.com/problemset/', '_blank');
+                            break;
+                    }
                 }
-            }
+            });
         });
     </script>
 </body>

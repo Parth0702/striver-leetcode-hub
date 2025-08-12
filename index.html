@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Striver A2Z + LeetCode Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+        
+        .panel {
+            flex: 1;
+            position: relative;
+            border-right: 2px solid #333;
+        }
+        
+        .panel:last-child {
+            border-right: none;
+        }
+        
+        .panel-header {
+            background: #2d2d2d;
+            padding: 12px 20px;
+            border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .refresh-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .refresh-btn:hover {
+            background: #45a049;
+        }
+        
+        iframe {
+            width: 100%;
+            height: calc(100% - 50px);
+            border: none;
+            background: white;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #888;
+        }
+        
+        .resize-handle {
+            position: absolute;
+            top: 0;
+            right: -2px;
+            width: 4px;
+            height: 100%;
+            background: #333;
+            cursor: col-resize;
+            z-index: 10;
+        }
+        
+        .resize-handle:hover {
+            background: #555;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .panel {
+                border-right: none;
+                border-bottom: 2px solid #333;
+            }
+            
+            .panel:last-child {
+                border-bottom: none;
+            }
+            
+            .resize-handle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Striver A2Z DSA + LeetCode Practice Hub</h1>
+    </div>
+    
+    <div class="container">
+        <div class="panel" id="striver-panel">
+            <div class="panel-header">
+                <span class="panel-title">📚 Striver's A2Z DSA Course</span>
+                <button class="refresh-btn" onclick="refreshStriver()">↻ Refresh</button>
+            </div>
+            <div class="loading" id="striver-loading">Loading Striver's course...</div>
+            <iframe id="striver-frame" src="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"></iframe>
+            <div class="resize-handle"></div>
+        </div>
+        
+        <div class="panel" id="leetcode-panel">
+            <div class="panel-header">
+                <span class="panel-title">💻 LeetCode Practice</span>
+                <button class="refresh-btn" onclick="refreshLeetCode()">↻ Refresh</button>
+            </div>
+            <div class="loading" id="leetcode-loading">Loading LeetCode...</div>
+            <iframe id="leetcode-frame" src="https://leetcode.com/problemset/"></iframe>
+        </div>
+    </div>
+    
+    <script>
+        // Refresh functions
+        function refreshStriver() {
+            const frame = document.getElementById('striver-frame');
+            frame.src = frame.src;
+        }
+        
+        function refreshLeetCode() {
+            const frame = document.getElementById('leetcode-frame');
+            frame.src = frame.src;
+        }
+        
+        // Hide loading indicators when iframes load
+        document.getElementById('striver-frame').onload = function() {
+            document.getElementById('striver-loading').style.display = 'none';
+        };
+        
+        document.getElementById('leetcode-frame').onload = function() {
+            document.getElementById('leetcode-loading').style.display = 'none';
+        };
+        
+        // Resizable panels
+        let isResizing = false;
+        
+        document.querySelector('.resize-handle').addEventListener('mousedown', function(e) {
+            isResizing = true;
+            document.addEventListener('mousemove', handleResize);
+            document.addEventListener('mouseup', stopResize);
+        });
+        
+        function handleResize(e) {
+            if (!isResizing) return;
+            
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const percentage = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+            
+            if (percentage > 20 && percentage < 80) {
+                document.getElementById('striver-panel').style.flex = `0 0 ${percentage}%`;
+                document.getElementById('leetcode-panel').style.flex = `0 0 ${100 - percentage}%`;
+            }
+        }
+        
+        function stopResize() {
+            isResizing = false;
+            document.removeEventListener('mousemove', handleResize);
+            document.removeEventListener('mouseup', stopResize);
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        refreshStriver();
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        refreshLeetCode();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
